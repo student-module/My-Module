@@ -1,0 +1,10 @@
+{
+  "appId": "com.sazid.mymodule",
+  "appName": "My Module",
+  "webDir": "www",
+  "server": {
+    "url": "https://sazid73-001-site1.dtempurl.com/",
+    "cleartext": true,
+    "androidScheme": "https"
+  }
+}
