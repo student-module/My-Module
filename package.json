@@ -1,0 +1,9 @@
+{
+  "name": "my-module-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "@capacitor/android": "^8.4.2",
+    "@capacitor/cli": "^8.4.2",
+    "@capacitor/core": "^8.4.2"
+  }
+}
