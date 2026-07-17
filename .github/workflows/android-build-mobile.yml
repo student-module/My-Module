@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -34,31 +34,32 @@ jobs:
             npx cap sync android
           fi
 
-     - name: Enable desktop-style rendering
+      - name: Enable desktop-style rendering
         run: |
           mkdir -p android/app/src/main/java/com/sazid/mymodule
-          cat > android/app/src/main/java/com/sazid/mymodule/MainActivity.java << 'EOF'
-          package com.sazid.mymodule;
+          printf '%s\n' \
+            'package com.sazid.mymodule;' \
+            '' \
+            'import android.os.Bundle;' \
+            'import android.webkit.WebSettings;' \
+            'import android.webkit.WebView;' \
+            'import com.getcapacitor.BridgeActivity;' \
+            '' \
+            'public class MainActivity extends BridgeActivity {' \
+            '    @Override' \
+            '    public void onCreate(Bundle savedInstanceState) {' \
+            '        super.onCreate(savedInstanceState);' \
+            '        WebView webView = getBridge().getWebView();' \
+            '        WebSettings settings = webView.getSettings();' \
+            '        settings.setUseWideViewPort(true);' \
+            '        settings.setLoadWithOverviewMode(true);' \
+            '        settings.setSupportZoom(true);' \
+            '        settings.setBuiltInZoomControls(true);' \
+            '        settings.setDisplayZoomControls(false);' \
+            '    }' \
+            '}' \
+            > android/app/src/main/java/com/sazid/mymodule/MainActivity.java
 
-          import android.os.Bundle;
-          import android.webkit.WebSettings;
-          import android.webkit.WebView;
-          import com.getcapacitor.BridgeActivity;
-
-          public class MainActivity extends BridgeActivity {
-              @Override
-              public void onCreate(Bundle savedInstanceState) {
-                  super.onCreate(savedInstanceState);
-                  WebView webView = getBridge().getWebView();
-                  WebSettings settings = webView.getSettings();
-                  settings.setUseWideViewPort(true);
-                  settings.setLoadWithOverviewMode(true);
-                  settings.setSupportZoom(true);
-                  settings.setBuiltInZoomControls(true);
-                  settings.setDisplayZoomControls(false);
-              }
-          }
-          EOF
       - name: Grant execute permission for gradlew
         run: chmod +x android/gradlew
 
