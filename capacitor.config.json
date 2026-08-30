@@ -3,7 +3,7 @@
   "appName": "My Module",
   "webDir": "www",
   "server": {
-    "url": "https://sazid73-001-site1.dtempurl.com/",
+    "url": "http://sazid74-001-site1.htempurl.com/",
     "cleartext": true,
     "androidScheme": "https"
   }
